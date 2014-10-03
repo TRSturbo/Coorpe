@@ -2,14 +2,21 @@
 //  AppDelegate.h
 //  Coorpe
 //
-//  Created by Aaron Tharpe on 10/2/14.
-//  Copyright (c) 2014 Aaron Tharpe. All rights reserved.
+//  Created by Aaron Tharpe and Kevin Cooper on 10/2/14.
+//  Copyright (c) 2014 Corpe Inc. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (strong, nonatomic) NSStatusItem *statusBarApplet;
+
+@property (assign) IBOutlet NSMenu *statusMenu;
+
+- (NSString *)stringForType:(NSString *)dataType;
+
+- (IBAction)test:(id)sender;
 
 
 @end
