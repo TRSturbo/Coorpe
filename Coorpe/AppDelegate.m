@@ -29,26 +29,12 @@ NSString * fourthClip;
 {
     [_statusMenu setDelegate:self];
     _clipContentsArray = [[NSMutableArray alloc] init];
-    [self checkPasteBoard];
+    _menuArray = [[NSMutableArray alloc]initWithObjects:_firstOption,_secondOption,_thirdOption,_fourthOption, nil];
     
-}
-
--(void)addToArray{
-    if(_clipContents){
-        [_clipContentsArray addObject:_clipContents];
-        NSLog(@"%@",_clipContentsArray[0]);
-    }
-}
-
--(void)getClipboardContents{
-    NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard object
-    if ([clipBoard stringForType:NSPasteboardTypeString]){
-        //if the current clipboard contents differ from what is already stored in clipContents variable
-        
-        _clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
-        [_clipContentsArray addObject:_clipContents];
-        //copy clipboard into clipContents variable
-    }
+    [self getClipboardContents];
+    [_clipContentsArray addObject:_clipContents];
+    [self redrawMenu];
+    
 }
 
 - (void) awakeFromNib {
@@ -61,57 +47,8 @@ NSString * fourthClip;
     
 }
 
-- (void)menuWillOpen:(NSMenu *)statusMenu //when menu is opened
-{
-    NSUInteger arrayLength = [_clipContentsArray count]; //get length of array
-    
-    if(arrayLength == 1){ //if there is one element in mutable array
-        
+- (void)menuWillOpen:(NSMenu *)statusMenu{
         [self checkPasteBoard];
-        NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard
-        NSUInteger tempInt = [_clipContentsArray indexOfObject:([clipBoard  stringForType:NSPasteboardTypeString])]; //finding index of object in mutable array
-        firstClip = [_clipContentsArray objectAtIndex:tempInt]; //assigning object to string
-        [_firstOption setTitle:firstClip]; //change name to reflect copied obj
-        NSLog(@"%@",firstClip);
-        
-    } else if (arrayLength == 2){
-        
-        [self checkPasteBoard];
-        NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard];
-        NSUInteger tempInt = [_clipContentsArray indexOfObject:([clipBoard  stringForType:NSPasteboardTypeString])];
-        secondClip = [_clipContentsArray objectAtIndex:tempInt];
-        [_secondOption setTitle:secondClip];
-        NSLog(@"%@",secondClip);
-        
-    } else if (arrayLength == 3){
-        
-        [self checkPasteBoard];
-        NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard];
-        NSUInteger tempInt = [_clipContentsArray indexOfObject:([clipBoard  stringForType:NSPasteboardTypeString])];
-        thirdClip = [_clipContentsArray objectAtIndex:tempInt];
-        [_thirdOption setTitle:thirdClip];
-        NSLog(@"%@",thirdClip);
-        
-    } else if (arrayLength == 4){
-        
-        [self checkPasteBoard];
-        NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard];
-        NSUInteger tempInt = [_clipContentsArray indexOfObject:([clipBoard  stringForType:NSPasteboardTypeString])];
-        fourthClip = [_clipContentsArray objectAtIndex:tempInt];
-        [_fourthOption setTitle:fourthClip];
-        NSLog(@"%@",fourthClip);
-        
-    } else { //if mutable array exceeds four items
-        
-        [_clipContentsArray removeAllObjects]; //clear all items, start over at one
-        
-        [self checkPasteBoard];
-        NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard];
-        NSUInteger tempInt = [_clipContentsArray indexOfObject:([clipBoard  stringForType:NSPasteboardTypeString])];
-        firstClip = [_clipContentsArray objectAtIndex:tempInt];
-        [_firstOption setTitle:firstClip];
-        NSLog(@"%@",firstClip);
-    }
 }
 
 - (IBAction)firstClip:(id)sender{
@@ -134,24 +71,37 @@ NSString * fourthClip;
     [[NSPasteboard generalPasteboard] setString:fourthClip  forType:NSStringPboardType];
 }
 
-
 - (IBAction)printAll:(id)sender {
     for (id obj in _clipContentsArray)
         NSLog(@"obj: %@", obj);
 }
 
-- (void)checkPasteBoard{
+-(void)getClipboardContents{
     NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard object
+    if ([clipBoard stringForType:NSPasteboardTypeString]){
+        //if the current clipboard contents is not nil
+        _clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
+    }
+}
+
+- (void)checkPasteBoard{
+    
+    //get the new clipboard contents
     [self getClipboardContents];
     
-    if ([clipBoard  stringForType:NSPasteboardTypeString] != _clipContents){
-        //if the current clipboard contents differ from what is already stored in clipContents variable
-        
-        _clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
-        //copy clipboard into clipContents variable
-        
+    if ([_clipContents isNotEqualTo:_clipContentsArray[0]]){
+        //if the current clipboard contents differ from what is already stored in the first array object
+        [_clipContentsArray insertObject:_clipContents atIndex:0];
+        [self redrawMenu];
     }
     
+}
+
+-(void)redrawMenu{
+    //basic for loop to set every menuArray item title to the corresponding array element of _clipContentsArray
+    for(int i = 0; i < [_clipContentsArray count] && i < [_menuArray count]; i++){
+        [_menuArray[i] setTitle:_clipContentsArray[i]];
+    }
 }
 
 

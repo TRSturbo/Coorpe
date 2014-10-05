@@ -15,6 +15,7 @@
 @property (assign) IBOutlet NSMenu *statusMenu;
 @property (strong, nonatomic) NSString *clipContents;
 @property (strong, nonatomic) NSMutableArray *clipContentsArray;
+@property (strong, nonatomic) NSMutableArray *menuArray;
 @property (assign) IBOutlet NSMenuItem * firstOption;
 @property (assign) IBOutlet NSMenuItem * secondOption;
 @property (assign) IBOutlet NSMenuItem * thirdOption;
