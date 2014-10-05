@@ -13,11 +13,13 @@
 @property (strong, nonatomic) NSStatusItem *statusBarApplet;
 
 @property (assign) IBOutlet NSMenu *statusMenu;
+@property (strong, nonatomic) NSString *clipContents;
+@property (strong, nonatomic) NSMutableArray *clipContentsArray;
+
 
 - (NSString *)stringForType:(NSString *)dataType;
 
 - (IBAction)test:(id)sender;
-
 
 @end
 

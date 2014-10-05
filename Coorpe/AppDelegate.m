@@ -23,42 +23,27 @@
 
 - (void) applicationWillFinishLaunching:(NSNotification *)aNotification
 {
-    NSMutableArray * clipContentsArray = [[NSMutableArray alloc] init];
+    _clipContentsArray = [[NSMutableArray alloc] init];
+    [self checkPasteBoard];
     
-    NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard object
-    NSString * clipContents; //string variable to later store clipboard contents
-    int i = 0; //for counting
-    NSLog(clipContents); //print test
-    
-    
-    if ([clipBoard  stringForType:NSPasteboardTypeString] != clipContents){
-        //if the current clipboard contents differ from what is already stored in clipContents variable
-        
-        clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
-        //copy clipboard into clipContents variable
-        
-        [clipContentsArray insertObject:clipContents atIndex:i];
-       
-        
-        
-        //store string in array
-        i++;
-        NSLog(clipContents);
-        
-        if (i == 2){
-            for (NSString *line in clipContentsArray) {
-                // Results from NSLog are in the Console
-                NSLog([NSString stringWithFormat:@"line: %@", line]);
-            }
-            i = 0;
-        }
-    }
-    
-    
-
 }
 
+-(void)addToArray{
+    if(_clipContents){
+        [_clipContentsArray addObject:_clipContents];
+        NSLog(@"%@",_clipContentsArray[0]);
+    }
+}
 
+-(void)getClipboardContents{
+    NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard object
+    if ([clipBoard stringForType:NSPasteboardTypeString]){
+        //if the current clipboard contents differ from what is already stored in clipContents variable
+        
+        _clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
+        //copy clipboard into clipContents variable
+    }
+}
 
 - (void) awakeFromNib {
     self.statusBarApplet = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -75,6 +60,20 @@
     NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard];
     NSString* clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
     NSLog(@"%@", clipContents);
+}
+
+- (void)checkPasteBoard{
+    NSPasteboard*  clipBoard  = [NSPasteboard generalPasteboard]; //create clipboard object
+    [self getClipboardContents];
+    
+    if ([clipBoard  stringForType:NSPasteboardTypeString] != _clipContents){
+        //if the current clipboard contents differ from what is already stored in clipContents variable
+        
+        _clipContents = [clipBoard  stringForType:NSPasteboardTypeString];
+        //copy clipboard into clipContents variable
+        
+    }
+
 }
 
 
