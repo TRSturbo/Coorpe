@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A379a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
     </dependencies>
     <objects>
@@ -14,7 +15,11 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="StatusBarApplet" destination="m50-Le-HqD" id="AmH-KH-fcW"/>
+                <outlet property="firstOption" destination="YfB-7n-Veo" id="5sP-iG-cnB"/>
+                <outlet property="fourthOption" destination="Vry-8t-Ryb" id="ZJo-jA-XKU"/>
+                <outlet property="secondOption" destination="sAZ-Xn-GhK" id="doa-b4-F3g"/>
                 <outlet property="statusMenu" destination="m50-Le-HqD" id="NTf-MY-ezs"/>
+                <outlet property="thirdOption" destination="LRa-ND-S23" id="JEk-2S-dow"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -672,33 +677,39 @@
         </menu>
         <menu title="Menu" id="m50-Le-HqD">
             <items>
-                <menuItem title="Copied Item 1" id="YfB-7n-Veo">
+                <menuItem title="(empty)" id="YfB-7n-Veo">
+                    <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="test:" target="Voe-Tx-rLC" id="3LW-J1-KVG"/>
+                        <action selector="firstClip:" target="Voe-Tx-rLC" id="RWO-JM-V1g"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Copied Item 2" id="sAZ-Xn-GhK">
+                <menuItem title="(empty)" id="sAZ-Xn-GhK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="test2:" target="Voe-Tx-rLC" id="MqP-l4-Rst"/>
+                        <action selector="secondClip:" target="Voe-Tx-rLC" id="Zdh-8a-4BZ"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Copied Item 3" id="LRa-ND-S23">
+                <menuItem title="(empty)" id="LRa-ND-S23">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="test:" target="Voe-Tx-rLC" id="CuZ-Yq-xuX"/>
+                        <action selector="thirdClip:" target="Voe-Tx-rLC" id="Pcn-sl-XQs"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Copied Item 4" id="Vry-8t-Ryb">
+                <menuItem title="(empty)" id="Vry-8t-Ryb">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="test:" target="Voe-Tx-rLC" id="LLW-Py-TRu"/>
+                        <action selector="fourthClip:" target="Voe-Tx-rLC" id="66o-Gr-FpH"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="fH1-pe-XE1"/>
-                <menuItem title="Testing" id="FZp-Lx-8sx">
+                <menuItem title="Print All In Array" id="fKl-Gm-tvy">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="printAll:" target="Voe-Tx-rLC" id="Hbg-g3-AFk"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Quit Coorpe" keyEquivalent="q" id="N8E-Hl-vc8">
                     <connections>
@@ -706,7 +717,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="92" y="73.5"/>
+            <point key="canvasLocation" x="249" y="21.5"/>
         </menu>
     </objects>
 </document>
